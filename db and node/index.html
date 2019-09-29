@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<HTML>
+    <TITLE>Admin Login</TITLE>
+    <HEAD>
+        <h1>CCN DEN</h1>
+        <style>
+            h1{
+                
+                background: rgba(255, 0, 0, 0.658);
+                margin-top: 0px;
+                padding: 20px;
+                text-align: center;
+                font-size: 42px;
+            }
+           #loginbox
+           {
+               border: solid black;
+               border-width: 0.1px;
+               box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.514);
+               width: 600px;
+               height: 250px;
+               margin: auto;
+               position: relative;
+               margin-top: 10%;
+               text-align: center;
+           } 
+           h3{
+               font-size: 26px;
+               text-align: center;
+               background: rgba(255, 0, 0, 0.658);
+               padding: 10px;
+               margin: 0px;
+           }
+           label{
+                padding: 50px;             
+           }
+           input{
+               width: 200px;
+               margin-top: 20px;
+           }
+           #pword
+           {
+               margin-bottom: 20px;
+           }
+           button{
+               background: rgba(255, 0, 0, 0.658);
+               width: 100px;
+               padding: 5px;
+               font-size: 15px;
+               font-weight: bold;
+               cursor: pointer;
+               border: solid rgba(255, 0, 0, 0.438);
+           }
+           button:hover
+           {
+               background: rgba(255, 0, 0, 0.438);
+           }
+        </style>
+    </HEAD>
+    <BODY>
+        <div id="loginbox">
+            <h3>Login for Admin</h3>
+            <label>Username</label>
+            <input type="text" placeholder="Enter Username" id="uname"><br>
+            <label>Password</label>
+            <input type="password" placeholder="Enter Password" id="pword"><br>
+            <button id="btn">Login</button>
+            <p>Not Admin?  <a href="customer.html">Customer Login</a></p>         
+        </div>
+        <script>
+                var uName = document.getElementById("uname");
+                var passW = document.getElementById("pword");
+                var logG = document.getElementById("btn");
+
+                logG.addEventListener("click", click);
+                function click()
+                {
+	                var n = uName.value;
+	                var p = passW.value;
+	                if(n==="admin" && p==="wow")
+	                {
+                        
+                        window.location.href = "admin.html";
+	                }
+	                else
+	                {
+		                alert("Incorrect Login");
+	                }
+                };
+                passW.addEventListener("keypress", function(event)
+                {	if(event.which ===13)
+	                {
+		                click.call();
+	                }
+                });
+        </script>
+    </BODY>
+</HTML>

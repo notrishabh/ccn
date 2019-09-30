@@ -76,6 +76,10 @@ app.get('/', function(request, response){
     response.sendFile(path.join(__dirname + '/index.html'));
 });
 
+app.get('/index.html', function(request, response){
+    response.sendFile(path.join(__dirname + '/index.html'));
+});
+
 app.get('/admin.html', function(request, response){
     response.sendFile(path.join(__dirname + '/admin.html'));
 });
@@ -83,7 +87,7 @@ app.get('/admin.html', function(request, response){
 //********************************************* */
 
 app.get('/payment.html', function(request, response){
-	var reo = '<html><head><title>xd</title></head><body>{${table}}</body></html>';
+	var reo = '<html><head><title>xd</title><style>body{color: red;}table{border-collapse: collapse;}th,td{border-bottom: 1px solid #ddd;}</style></head><body>{${table}}</body></html>';
 	function setResHtml(sql,cb) {
 	connection.query(sql, function(error, results, fields) {
 		// for(var i=0; i<results.length; i++){

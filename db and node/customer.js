@@ -87,7 +87,7 @@ app.get('/admin.html', function(request, response){
 //********************************************* */
 
 app.get('/payment.html', function(request, response){
-	var reo = '<html><head><title>xd</title><style>body{color: red;}table{border-collapse: collapse; width: 100%}th{height: 50px; background-color: green; color: white;}td,th{text-align: left; padding: 15px;}</style></head><body>{${table}}</body></html>';
+	var reo = '<html><head><title>Payment Records</title><style>body{color: red;}table{border-collapse: collapse; width: 100%}th{height: 50px; background-color: green; color: white;}td,th{text-align: left; padding: 15px;}</style></head><body>{${table}}</body></html>';
 	function setResHtml(sql,cb) {
 	connection.query(sql, function(error, results, fields) {
 		// for(var i=0; i<results.length; i++){
@@ -103,9 +103,9 @@ app.get('/payment.html', function(request, response){
 	var table = "";
 	for(var i=0; i<results.length; i++)
 	{
-		table +='<tr><td>' + (i+1) + '</td><td>' + results[i].Name + '</td><td>' + results[i].Address + '</td><td>' + results[i].Mobile + '</td><td>' + results[i].Stb + '</td><td>' + results[i].Amount + '</td></tr>';
+		table +='<tr><td>' + (i+1) + '</td><td>' + results[i].Name + '</td><td>' + results[i].Address + '</td><td>' + results[i].Mobile + '</td><td>' + results[i].Stb + '</td><td>' + results[i].Amount + '</td><td>' + results[i].Date + '</td><td>' + results[i].Time + '</td></tr>';
 	}
-	table = '<table border="1"><tr><th>Nr.</th><th>Name</th></th><th>Address</th><th>Mobile</th></th><th>Stb No.</th></th><th>Amount</th></tr>' + table + '</table'; 
+	table = '<table border="1"><tr><th>Nr.</th><th>Name</th></th><th>Address</th><th>Mobile</th></th><th>Stb No.</th></th><th>Amount</th><th>Date</th><th>Time</th></tr>' + table + '</table'; 
 	return cb(table);
 });
 
@@ -215,6 +215,8 @@ app.post('/send', urlEncodedParser, function(request, response){
 				});
 			// break;
 			connection.query('SELECT * FROM info WHERE Stb = ?', [stbb], function(error, results, fields, amount) {
+				// var date = NOW();
+				// var time = NOW();
 				var pay = 'INSERT INTO payment SET ?';
 				var values = {Name : results[0].Name, Address : results[0].Address, Mobile : results[0].Mobile, Stb : results[0].Stb, Amount : req.body.amount};
 				connection.query(pay, values, function(err, results, fields){

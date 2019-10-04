@@ -121,6 +121,33 @@ app.get('/payment.html', function(request, response){
 });
 
 
+app.get('/complaint.html', function(request, response){
+	var reo = '<html><head><title>Complaint Records</title><style>body{color: red;}table{border-collapse: collapse; width: 100%}th{height: 50px; background-color: green; color: white;}td,th{text-align: left; padding: 15px;}</style></head><body>{${table}}</body></html>';
+	function setResHtml(sql,cb) {
+	connection.query(sql, function(error, results, fields) {
+
+	var table = "";
+	for(var i=0; i<results.length; i++)
+	{
+		table +='<tr><td><input type="checkbox" />' + (i+1) + '</td><td>' + results[i].Name + '</td><td>' + results[i].Address + '</td><td>' + results[i].Mobile + '</td><td>' + results[i].Stb + '</td><td>' + results[i].Mail + '</td><td>' + results[i].Error + '</td><td>' + results[i].Msg + '</td></tr>';
+	}
+	table = '<table border="1"><tr><th>Nr.</th><th>Name</th></th><th>Address</th><th>Mobile</th></th><th>Stb No.</th></th><th>Mail</th><th>Error</th><th>Message</th></tr>' + table + '</table'; 
+	return cb(table);
+});
+
+	}
+	let sql = 'SELECT * FROM complaint';
+
+	setResHtml(sql, resql=> {
+		reo = reo.replace('{${table}}', resql);
+		response.writeHead(200, {'Content-Type' : "text\html; charset=utf-8"});
+		response.write(reo, 'utf-8');
+		response.end();
+	});
+});
+
+
+
 
 
 //********************************************* */
@@ -157,7 +184,7 @@ app.post('/auth', urlEncodedParser, function(request, response){
 
 app.post('/send', urlEncodedParser, function(request, response){
 	var stbb = request.body.stb;
-	console.log(stbb);
+	response.send("Complaint Sent!");
 	var mail = request.body.mail;
 	var wow = request.body.error;
 	var msg = request.body.msg;

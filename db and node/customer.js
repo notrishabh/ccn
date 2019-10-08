@@ -122,14 +122,14 @@ app.get('/payment.html', function(request, response){
 
 
 app.get('/complaint.html', function(request, response){
-	var reo = '<html><head><title>Complaint Records</title><style>body{color: red;}table{border-collapse: collapse; width: 100%}th{height: 50px; background-color: green; color: white;}td,th{text-align: left; padding: 15px;}</style></head><body>{${table}}</body></html>';
+	var reo = '<html><head><title>Complaint Records</title><style>body{color: red;}table{border-collapse: collapse; width: 100%}th{height: 50px; background-color: green; color: white;}td,th{text-align: left; padding: 15px;}.notPressed:focus{width : 50px;}</style></head><body>{${table}}</body></html>';
 	function setResHtml(sql,cb) {
 	connection.query(sql, function(error, results, fields) {
 
 	var table = "";
 	for(var i=0; i<results.length; i++)
 	{
-		table +='<tr><td><input type="checkbox" />' + (i+1) + '</td><td>' + results[i].Name + '</td><td>' + results[i].Address + '</td><td>' + results[i].Mobile + '</td><td>' + results[i].Stb + '</td><td>' + results[i].Mail + '</td><td>' + results[i].Error + '</td><td>' + results[i].Msg + '</td></tr>';
+		table +='<tr><td><input type="button" class="notPressed"></td><td>' + results[i].Name + '</td><td>' + results[i].Address + '</td><td>' + results[i].Mobile + '</td><td>' + results[i].Stb + '</td><td>' + results[i].Mail + '</td><td>' + results[i].Error + '</td><td>' + results[i].Msg + '</td></tr>';
 	}
 	table = '<table border="1"><tr><th>Nr.</th><th>Name</th></th><th>Address</th><th>Mobile</th></th><th>Stb No.</th></th><th>Mail</th><th>Error</th><th>Message</th></tr>' + table + '</table'; 
 	return cb(table);

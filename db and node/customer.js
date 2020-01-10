@@ -87,65 +87,92 @@ app.get('/admin.html', function(request, response){
 //********************************************* */
 
 app.get('/payment.html', function(request, response){
-	var reo = '<html><head><title>Payment Records</title><style>body{color: red;}table{border-collapse: collapse; width: 100%}th{height: 50px; background-color: green; color: white;}td,th{text-align: left; padding: 15px;}</style></head><body>{${table}}</body></html>';
-	function setResHtml(sql,cb) {
-	connection.query(sql, function(error, results, fields) {
-		// for(var i=0; i<results.length; i++){
-		// console.log(results[i]);
-		// var data = {name : results[i].Name.value};
-		
-		// console.log(data);
-		// }
-		// console.log(data);
+// 	var reo = '<html><head><title>Payment Records</title><style>body{color: red;}table{border-collapse: collapse; width: 100%}th{height: 50px; background-color: green; color: white;}td,th{text-align: left; padding: 15px;}</style></head><body>{${table}}</body></html>';
+// 	function setResHtml(sql,cb) {
+// 	connection.query(sql, function(error, results, fields) {
 
-	// response.render("payment.ejs", {data} );
+// 	var table = "";
+// 	for(var i=0; i<results.length; i++)
+// 	{
+// 		table +='<tr><td>' + (i+1) + '</td><td>' + results[i].Name + '</td><td>' + results[i].Address + '</td><td>' + results[i].Mobile + '</td><td>' + results[i].Stb + '</td><td>' + results[i].Amount + '</td><td>' + results[i].Date + '</td><td>' + results[i].Time + '</td></tr>';
+// 	}
+// 	table = '<table border="1"><tr><th>Nr.</th><th>Name</th></th><th>Address</th><th>Mobile</th></th><th>Stb No.</th></th><th>Amount</th><th>Date</th><th>Time</th></tr>' + table + '</table'; 
+// 	return cb(table);
+// });
 
-	var table = "";
-	for(var i=0; i<results.length; i++)
-	{
-		table +='<tr><td>' + (i+1) + '</td><td>' + results[i].Name + '</td><td>' + results[i].Address + '</td><td>' + results[i].Mobile + '</td><td>' + results[i].Stb + '</td><td>' + results[i].Amount + '</td><td>' + results[i].Date + '</td><td>' + results[i].Time + '</td></tr>';
-	}
-	table = '<table border="1"><tr><th>Nr.</th><th>Name</th></th><th>Address</th><th>Mobile</th></th><th>Stb No.</th></th><th>Amount</th><th>Date</th><th>Time</th></tr>' + table + '</table'; 
-	return cb(table);
-});
+// 	}
+// 	let sql = 'SELECT * FROM payment';
 
-	}
-	let sql = 'SELECT * FROM payment';
-
-	setResHtml(sql, resql=> {
-		reo = reo.replace('{${table}}', resql);
-		response.writeHead(200, {'Content-Type' : "text\html; charset=utf-8"});
-		response.write(reo, 'utf-8');
-		response.end();
+// 	setResHtml(sql, resql=> {
+// 		reo = reo.replace('{${table}}', resql);
+// 		response.writeHead(200, {'Content-Type' : "text\html; charset=utf-8"});
+// 		response.write(reo, 'utf-8');
+// 		response.end();
+// 	});
+	connection.query('SELECT * FROM payment', function(error,rows,fields){
+		response.render('payment.ejs',{data:rows});
 	});
 });
 
 
 app.get('/complaint.html', function(request, response){
-	var reo = '<html><head><title>Complaint Records</title><style>body{color: red;}table{border-collapse: collapse; width: 100%}th{height: 50px; background-color: green; color: white;}td,th{text-align: left; padding: 15px;}.notPressed:focus{width : 50px;}</style></head><body>{${table}}</body></html>';
-	function setResHtml(sql,cb) {
-	connection.query(sql, function(error, results, fields) {
+// 	var reo = '<html><head><title>Complaint Records</title><style>body{color: red;}table{border-collapse: collapse; width: 100%}th{height: 50px; background-color: green; color: white;}td,th{text-align: left; padding: 15px;}.notPressed:focus{width : 50px;}</style></head><body>{${table}}</body></html>';
+// 	function setResHtml(sql,cb) {
+// 	connection.query(sql, function(error, results, fields) {
 
-	var table = "";
-	for(var i=0; i<results.length; i++)
-	{
-		table +='<tr><td><input type="button" class="notPressed"></td><td>' + results[i].Name + '</td><td>' + results[i].Address + '</td><td>' + results[i].Mobile + '</td><td>' + results[i].Stb + '</td><td>' + results[i].Mail + '</td><td>' + results[i].Error + '</td><td>' + results[i].Msg + '</td></tr>';
-	}
-	table = '<table border="1"><tr><th>Nr.</th><th>Name</th></th><th>Address</th><th>Mobile</th></th><th>Stb No.</th></th><th>Mail</th><th>Error</th><th>Message</th></tr>' + table + '</table'; 
-	return cb(table);
+// 	var table = "";
+// 	for(var i=0; i<results.length; i++)
+// 	{
+// 		table +='<tr><td><input type="button" class="notPressed"></td><td>' + results[i].Name + '</td><td>' + results[i].Address + '</td><td>' + results[i].Mobile + '</td><td>' + results[i].Stb + '</td><td>' + results[i].Mail + '</td><td>' + results[i].Error + '</td><td>' + results[i].Msg + '</td></tr>';
+// 	}
+// 	table = '<table border="1"><tr><th>Nr.</th><th>Name</th></th><th>Address</th><th>Mobile</th></th><th>Stb No.</th></th><th>Mail</th><th>Error</th><th>Message</th></tr>' + table + '</table'; 
+// 	return cb(table);
+// });
+
+// 	}
+// 	let sql = 'SELECT * FROM complaint';
+
+// 	setResHtml(sql, resql=> {
+// 		reo = reo.replace('{${table}}', resql);
+// 		response.writeHead(200, {'Content-Type' : "text\html; charset=utf-8"});
+// 		response.write(reo, 'utf-8');
+// 		response.end();
+// 	});
+
+	connection.query('SELECT * FROM complaint', function(error,rows,fields){
+	response.render('complaint.ejs',{data:rows});
+});
 });
 
-	}
-	let sql = 'SELECT * FROM complaint';
 
-	setResHtml(sql, resql=> {
-		reo = reo.replace('{${table}}', resql);
-		response.writeHead(200, {'Content-Type' : "text\html; charset=utf-8"});
-		response.write(reo, 'utf-8');
-		response.end();
-	});
+app.get('/full.html', function(request, response){
+// 	var reo = '<html><head><title>Complaint Records</title><style>body{color: red;}table{border-collapse: collapse; width: 100%}th{height: 50px; background-color: green; color: white;}td,th{text-align: left; padding: 15px;}</style></head><body>{${table}}</body></html>';
+// 	function setResHtml(sql,cb) {
+// 	connection.query(sql, function(error, results, fields) {
+
+// 	var table = "";
+// 	for(var i=0; i<results.length; i++)
+// 	{
+// 		table +='<tr><td>' + (i+1) + '</td><td>' + results[i].Name + '</td><td>' + results[i].Address + '</td><td>' + results[i].Mobile + '</td><td>' + results[i].Stb + '</td></tr>';
+// 	}
+// 	table = '<table border="1"><tr><th>Nr.</th><th>Name</th></th><th>Address</th><th>Mobile</th></th><th>Stb No.</th></tr>' + table + '</table'; 
+// 	return cb(table);
+// });
+
+// 	}
+// 	let sql = 'SELECT * FROM info';
+
+// 	setResHtml(sql, resql=> {
+// 		reo = reo.replace('{${table}}', resql);
+// 		response.writeHead(200, {'Content-Type' : "text\html; charset=utf-8"});
+// 		response.write(reo, 'utf-8');
+// 		response.end();
+// 	});
+
+	connection.query('SELECT * FROM info', function(error,rows,fields){
+	response.render('full.ejs',{data:rows});
 });
-
+});
 
 
 

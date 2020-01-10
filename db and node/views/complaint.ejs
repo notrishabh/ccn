@@ -10,14 +10,14 @@
         <style>
             .jumbotron{
                 margin-top: 0px;
-                background-color: rgb(61, 167, 61);
+                background-color: rgb(187, 68, 47);
                 color: rgb(5, 31, 5);
                 text-align: center;
             }
         </style>
       </head>
     <body>
-        <h1 class=jumbotron>Payments</h1>
+        <h1 class=jumbotron>Complaints</h1>
     <table class ="table table-hover">
     <thead>
       <tr>
@@ -26,9 +26,10 @@
         <th>Address</th>
         <th>Mobile</th>
         <th>Stb no.</th>
-        <th>Amount</th>
-        <th>Date</th>
-        <th>Time</th>
+        <th>Mail</th>
+        <th>Error</th>
+        <th>Msg</th>
+        <th>Checkbox</th>
       </tr>
     </thead>
     <tbody>
@@ -40,9 +41,10 @@
         <td><%=data[i].Address%></td>
         <td><%=data[i].Mobile%></td>
         <td><%=data[i].Stb%></td>
-        <td><%=data[i].Amount%></td>
-        <td><%=data[i].Date%></td>
-        <td><%=data[i].Time%></td>
+        <td><%=data[i].Mail%></td>
+        <td><%=data[i].Error%></td>
+        <td><%=data[i].Msg%></td>
+        <td><%=data[i].Checkbox%></td>
       </tr>
       <% }
       }else{ %>
@@ -52,4 +54,12 @@
     <% } %>
     </tbody>
     </table>
-    </body></html>
+
+    <script>
+        
+    </script>
+
+    </body>
+    
+
+    </html>

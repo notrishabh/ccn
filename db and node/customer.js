@@ -139,8 +139,16 @@ app.get('/complaint.html', function(request, response){
 // 		response.end();
 // 	});
 
-	connection.query('SELECT * FROM complaint', function(error,rows,fields){
+	connection.query('SELECT * FROM complaint WHERE Checkbox="0"', function(error,rows,fields){
 	response.render('complaint.ejs',{data:rows});
+});
+app.post('/check', urlEncodedParser, function(request, response){
+	var lol = request.body.checklol;
+	console.log(lol);
+	if(lol === 'on'){
+		connection.query('UPDATE complaint SET Checkbox = "1"',function(error, rows, fields){
+		});
+	}
 });
 });
 

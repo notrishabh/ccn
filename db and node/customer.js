@@ -5,11 +5,18 @@ var bodyParser = require("body-parser");
 var path = require("path");
 var qs = require("querystring");
 var nodemailer = require("nodemailer");
+var app = express();
 
 const http = require('http');
 const https = require('https');
 const checksum_lib = require('./checksum.js');
 const port = 3000;
+
+
+
+const adminController = require('./routes/admin');
+
+// app.use('/',adminController);
 
 // let transporter = nodemailer.createTransport({
 // 	service: 'gmail',
@@ -41,10 +48,6 @@ var PaytmConfig = {
 	key: "F5PAgH3S9@Qsx51W",
 	website: "WEBSTAGING"
 }
-
-
-var app = express();
-
 
 
 

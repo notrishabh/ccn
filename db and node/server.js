@@ -4,6 +4,8 @@ const path = require('path');
 const bodyparser = require('body-parser');
 const port = 8000;
 const mysql = require('mysql');
+const session = require('express-session');
+const flash = require('connect-flash');
 
 app.use(bodyparser.urlencoded({
     extended : true
@@ -25,8 +27,13 @@ db.connect((err)=>{
     }
 });
 
-
-
+app.use(session({
+    secret : 'secret',
+    cookie : { maxAge : 60000},
+    resave : false,
+    saveUninitialized : false
+}));
+app.use(flash());
 
 
 

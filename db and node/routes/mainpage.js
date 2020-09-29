@@ -1,9 +1,10 @@
 const express = require('express');
 const route = express.Router();
-const mysql = require("mysql");
 
 route.get('/', (req,res)=>{
-    res.render('home');
+    res.render('home', {
+        message : req.flash('message')
+    });
 });
 
 route.post('/', (req,res)=>{
@@ -21,12 +22,13 @@ function adminLogin(req,res){
             if(sqlPassword == password){
                 res.redirect('/admin');
             }else{
-                res.render('home', {
-                    wrong : "xdd"
-                });
+                req.flash('message', 'Wrong Password');
+                res.redirect('/');
             }
         }else{
-            console.log("wrong username");
+
+            req.flash('message', 'Wrong Credentials');
+            res.redirect('/');
         }
     });
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const route = express.Router();
 const mysql = require("mysql");
-const {ensureAuthenticated} = require('../config/auth');
+const {ensureAuthenticated} = require('../config/auth');    //Login Authenticator
 
 route.get('/', ensureAuthenticated, (req,res)=>{
     console.log(req.user);

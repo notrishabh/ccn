@@ -5,7 +5,7 @@ module.exports = function(passport){
     passport.use(
         new LocalStrategy({usernameField : 'username'}, (username, password, done) => {
             //Match username
-            let sql = `SELECT * FROM admin_login WHERE username = "${username}" LIMIT 1`;
+            let sql = `SELECT * FROM admin_login WHERE username = "${username}" LIMIT 1`;   //Matching Criteria
             db.query(sql, (err, result)=>{
                 if(result.length == 0){
                     return done(null, false, {message : "Not registered username"});

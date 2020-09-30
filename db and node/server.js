@@ -16,6 +16,7 @@ app.use(bodyparser.urlencoded({
 app.use(bodyparser.json()); //Body Parser for req.body
 
 app.set('view engine', 'ejs'); //EJS Configuration
+app.use( express.static( "public" ) );
 
 //============Database Connection==============
 db = mysql.createConnection({
@@ -62,7 +63,10 @@ app.use((req,res,next)=>{
 //ROUTES
 
 app.use('/admin', require('./routes/admin'));
-app.use('/', require('./routes/mainpage'));
+app.use('/customerPanel', require('./routes/customer'));
+app.use('/adminLogin', require('./routes/adminLogin'));
+app.use('/', require('./routes/customerLogin'));
+
 
 //Server Connection
 app.listen(port, ()=>{

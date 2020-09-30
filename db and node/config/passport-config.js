@@ -2,7 +2,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const mysql = require('mysql');
 
 module.exports = function(passport){
-    passport.use(
+    passport.use('admin-local',
         new LocalStrategy({usernameField : 'username'}, (username, password, done) => {
             //Match username
             let sql = `SELECT * FROM admin_login WHERE username = "${username}" LIMIT 1`;   //Matching Criteria
@@ -20,12 +20,41 @@ module.exports = function(passport){
         })
     );
 
-    passport.serializeUser((user,done)=> {
+
+    passport.use('customer-local',
+    new LocalStrategy({usernameField : 'stbNumber', passwordField: 'stbNumber',}, (stbNumber,password, done) => {
+        //Match stbnumber
+        let sql = `SELECT * FROM info WHERE Stb = "${stbNumber}" LIMIT 1`;   //Matching Criteria
+        db.query(sql, (err, results)=>{
+            if(results.length == 0){
+                console.log("fuck");
+                return done(null, false, {message : "No STB found"});
+            }else{
+                console.log(results[0]);
+                return done(null, results[0]);
+            }
+        });
+    })
+);
+
+passport.serializeUser((user,done)=> {
+    if(user.id){
         done(null, user.id);
-    });
-    passport.deserializeUser((id,done)=> {
+    }else{
+        done(null, user.Stb);
+    }
+        
+});
+passport.deserializeUser((id, done)=> {
+    if(id < 100){
         db.query(`SELECT * FROM admin_login WHERE id = ${id}`, (err, result)=>{
             done(null, result[0]);
         });
-    });
+    }else{
+        db.query(`SELECT * FROM info WHERE Stb = ${id}`, (err, result)=>{
+            done(null, result[0]);
+        });
+    }
+
+});
 }

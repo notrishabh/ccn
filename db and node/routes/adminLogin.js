@@ -46,9 +46,9 @@ route.get('/', (req,res)=>{
 //===========PASSPORT LOGIN SYSTEM=========
 
 route.post('/', (req,res, next)=>{
-    passport.authenticate('local', {
+    passport.authenticate('admin-local', {
         successRedirect: '/admin',
-        failureRedirect: '/',
+        failureRedirect: '/adminLogin',
         failureFlash: true
     })(req,res,next);
 });

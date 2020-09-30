@@ -5,7 +5,7 @@ const {ensureAuthenticated} = require('../config/auth');    //Login Authenticato
 
 route.get('/', ensureAuthenticated, (req,res)=>{
     console.log(req.user);
-    res.render('admin', {
+    res.render('customerPanel', {
         name : req.user.name
     });
 });
@@ -13,7 +13,7 @@ route.get('/', ensureAuthenticated, (req,res)=>{
 route.get('/logout', (req,res)=>{
     req.logOut();
     req.flash('success_msg', 'You have logged out');
-    res.redirect('/adminLogin');
+    res.redirect('/');
 });
 
 

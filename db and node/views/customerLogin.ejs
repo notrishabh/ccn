@@ -50,22 +50,20 @@
         }
         #loginaftertext{
             text-align: center;
-            color: rgb(139, 139, 139);
         }
         form{
             background-color: #FFEEEE;
             padding: 20px;
         }
+        #youCanBox{
+            font-family: 'Poppins', serif;
+            margin: 10%;
+            color: rgb(107, 107, 107);
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm">
-            <img src="logo.jpg" id="logo">
-        <ul class="navbar-nav ml-auto" id="right-nav">
-            <li class="nav-item"><a href="/adminLogin" class="nav-link" id="navbar-right-link"><i class="far fa-user"></i> Login as an Admin</a></li>
-            <li class="nav-item"><a href="#" class="nav-link" id="navbar-right-link"><i class="fas fa-at"></i></i> Contact Us</a></li>
-        </ul>
-      </nav>
+    <% include ./partials/nav-5 %>
       <div class="container">
          
         <div class="row">
@@ -76,14 +74,14 @@
                   <h1 id="companytext">
                     K.V. Cable <span id="quesmark">?</span>
                   </h1>
-                  <div id="text">
-                      <h2>You can :</h2>
+                <div id="youCanBox">
+                <h2>You can :</h2>
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item">View your Profile</li>
                     <li class="list-group-item">Pay your Bills</li>
                     <li class="list-group-item">File a Complaint</li>
                   </ul>
-                  <h4 id="loginaftertext">After you Login <i class="fas fa-arrow-right"></i></h4>
+                  <h4 id="loginaftertext">After you Login</h4>
                   </div>
                   
             </div> 
@@ -91,6 +89,8 @@
                 <h4 style="margin-bottom: 5%;">Login as a Customer</h4>
                 <form action="/" method="POST" autocomplete="off">
                     <div class="form-group">
+                        <% include ./partials/messages %>
+                        <p class="lead" style="color: red;"><%=error%></p>
                         <label for="stbNumber">Set-Top-Box Number</label>
                         <input type="text" class="form-control" name="stbNumber" placeholder="XXXXXXXX" required>
                     </div>

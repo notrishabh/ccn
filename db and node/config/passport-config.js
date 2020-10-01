@@ -8,7 +8,7 @@ module.exports = function(passport){
             let sql = `SELECT * FROM admin_login WHERE username = "${username}" LIMIT 1`;   //Matching Criteria
             db.query(sql, (err, result)=>{
                 if(result.length == 0){
-                    return done(null, false, {message : "Not registered username"});
+                    return done(null, false, {message : "Not registered username."});
                 }else{
                     if(password == result[0].password){
                         return done(null, result[0]);
@@ -28,7 +28,7 @@ module.exports = function(passport){
         db.query(sql, (err, results)=>{
             if(results.length == 0){
                 console.log("fuck");
-                return done(null, false, {message : "No STB found"});
+                return done(null, false, {message : "No STB found."});
             }else{
                 console.log(results[0]);
                 return done(null, results[0]);

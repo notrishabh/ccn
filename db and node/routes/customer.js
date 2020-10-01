@@ -6,13 +6,13 @@ const {ensureAuthenticated} = require('../config/auth');    //Login Authenticato
 route.get('/', ensureAuthenticated, (req,res)=>{
     console.log(req.user);
     res.render('customerPanel', {
-        name : req.user.name
+        data : req.user
     });
 });
 
 route.get('/logout', (req,res)=>{
     req.logOut();
-    req.flash('success_msg', 'You have logged out');
+    req.flash('success_msg', 'You have logged out.');
     res.redirect('/');
 });
 

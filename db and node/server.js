@@ -6,6 +6,7 @@ const mysql = require('mysql');
 const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
+const Paytm = require('paytm-pg-node-sdk');
 
 
 require('./config/passport-config')(passport); //Passport Login location
@@ -56,6 +57,12 @@ app.use((req,res,next)=>{
 });
 
 //=====================================================
+
+PaytmConfig = {
+	mid: "MvRloZ65975295905696",
+	key: "F5PAgH3S9@Qsx51W",
+	website: "WEBSTAGING"
+}
 
 
 

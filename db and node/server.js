@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyparser = require('body-parser');
-const port = 8000;
+port = 8000;
 const mysql = require('mysql');
 const session = require('express-session');
 const flash = require('connect-flash');

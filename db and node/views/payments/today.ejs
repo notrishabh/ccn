@@ -40,7 +40,7 @@
               <!-- Begin Page Content -->
               <div class="container-fluid">
 
-                <h1 class="h4 mb-4 text-gray-800">Payments Recieved on Date</h1>
+                <h1 class="h4 mb-4 text-gray-800">Payments Recieved on <%= today %></h1>
 
                           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -52,49 +52,52 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
+                      <th>Txn_ID</th>
                       <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
+                      <th>Address</th>
+                      <th>Mobile</th>
+                      <th>STB No.</th>
+                      <th>Amount</th>
+                      <th>Date</th>
+                      <th>Time</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
+                      <th>Txn_ID</th>
                       <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
+                      <th>Address</th>
+                      <th>Mobile</th>
+                      <th>STB No.</th>
+                      <th>Amount</th>
+                      <th>Date</th>
+                      <th>Time</th>
                     </tr>
                   </tfoot>
                   <tbody>
+                    <% if(results.length){ 
+                      for(var i = 0;i < results.length;i++) { 
+                        var date = results[i].Date.toString().split("00");
+                        %>
+
+                        <tr>
+                          <td><%= results[i].Txn_ID %></td>
+                          <td><%= results[i].Name %></td>
+                          <td><%= results[i].Address %></td>
+                          <td><%= results[i].Mobile %></td>
+                          <td><%= results[i].Stb %></td>
+                          <td><%= results[i].Amount %></td>
+                          <td><%= date[0] %></td>
+                          <td><%= results[i].Time %></td>
+                        </tr>
+
+                    <% } 
+                  }else{ %>
                     <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                      <td>2011/04/25</td>
-                      <td>$320,800</td>
+                      <td colspan="3">No user</td>
                     </tr>
-                    <tr>
-                        <td>Garrett Winters</td>
-                        <td>Accountant</td>
-                        <td>Tokyo</td>
-                        <td>63</td>
-                        <td>2011/07/25</td>
-                        <td>$170,750</td>
-                      </tr>
-                      <tr>
-                        <td>Ashton Cox</td>
-                        <td>Junior Technical Author</td>
-                        <td>San Francisco</td>
-                        <td>66</td>
-                        <td>2009/01/12</td>
-                        <td>$86,000</td>
-                      </tr>
+                  <% } %>
+                    
 
                   </tbody>
                 </table>

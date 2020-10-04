@@ -5,12 +5,24 @@ const {ensureAuthenticateds} = require('../config/adminAuth');    //Login Authen
 
 
 route.get('/today', ensureAuthenticateds, (req,res)=>{
-    let sql = 'SELECT * FROM payment'
-    db.query();
+    var today = new Date();
+    var dd = String(today.getDate());
+    var mm = String(today.getMonth() + 1);
+    var yyyy = String(today.getFullYear());
 
-    res.render('payments/today',{
-        user : req.user
+    today = yyyy + '-' + mm + '-' + dd;
+
+    let sql = `SELECT * FROM payment WHERE Date = "${today}" ORDER BY Time DESC`;
+    db.query(sql, (err,results)=>{
+
+        res.render('payments/today',{
+            user : req.user,
+            results : results,
+            today : today
+        });
     });
+
+    
 });
 
 

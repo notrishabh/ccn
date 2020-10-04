@@ -18,7 +18,7 @@ route.get('/', (req,res)=>{
 
 route.post('/', (req,res, next)=>{
     passport.authenticate('admin-local', {
-        successRedirect: '/admin',
+        successRedirect: '/adminPanel',
         failureRedirect: '/adminLogin',
         failureFlash: true
     })(req,res,next);

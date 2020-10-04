@@ -69,11 +69,13 @@ PaytmConfig = {
 
 //ROUTES
 
-app.use('/admin', require('./routes/admin'));
+
+
+app.use('/adminPanel', require('./routes/admin'));
+app.use('/payments', require('./routes/payments'));
 app.use('/customerPanel', require('./routes/customer'));
 app.use('/adminLogin', require('./routes/adminLogin'));
 app.use('/', require('./routes/customerLogin'));
-
 
 //Server Connection
 app.listen(port, ()=>{

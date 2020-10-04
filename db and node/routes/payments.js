@@ -5,8 +5,11 @@ const {ensureAuthenticateds} = require('../config/adminAuth');    //Login Authen
 
 
 route.get('/today', ensureAuthenticateds, (req,res)=>{
-    res.render('payments/today',{
+    let sql = 'SELECT * FROM payment'
+    db.query();
 
+    res.render('payments/today',{
+        user : req.user
     });
 });
 

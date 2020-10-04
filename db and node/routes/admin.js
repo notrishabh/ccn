@@ -6,7 +6,7 @@ const {ensureAuthenticateds} = require('../config/adminAuth');    //Login Authen
 route.get('/', ensureAuthenticateds, (req,res)=>{
     console.log(req.user);
     res.render('adminPanel', {
-        name : req.user.name
+        user : req.user
     });
 });
 

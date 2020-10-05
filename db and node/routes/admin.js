@@ -31,7 +31,7 @@ route.get('/', ensureAuthenticateds, (req,res)=>{
             db.query(sql, (err,results)=>{
                 latestName = results[0].Name;
                 latestAmount = results[0].Amount;
-                let sql = `SELECT COUNT(id) AS total FROM complaint`;
+                let sql = `SELECT COUNT(id) AS total FROM complaint WHERE Checkbox = 0`;
                 db.query(sql, (err, results)=>{
                     totalComplaints = results[0].total;
 
@@ -63,6 +63,7 @@ route.get('/logout', (req,res)=>{
 
 
 route.use('/payments', require('./payments'));
+route.use('/complaints', require('./complaints'));
 
 
 module.exports = route;

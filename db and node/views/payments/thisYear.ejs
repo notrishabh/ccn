@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Payments (Today)</title>
+    <title>Payments (This Year)</title>
 
     
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -33,14 +33,14 @@
             <!-- Main Content -->
             <div id="content">
       
-              <%- include('../partials/topbar', {heading: 'Payments (Today)'}); %>
+              <%- include('../partials/topbar', {heading: 'Payments (This Year)'}); %>
 
               <!-- End of Topbar -->
       
               <!-- Begin Page Content -->
               <div class="container-fluid">
 
-                <h1 class="h4 mb-4 text-gray-800">Payments Recieved on <%= today %></h1>
+                <h1 class="h4 mb-4 text-gray-800">Payments Recieved in <%= year %></h1>
 
                           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -97,7 +97,7 @@
                     <% } 
                   }else{ %>
                     <tr>
-                      <td colspan="3">No payment recieved on <%= today %></td>
+                      <td colspan="3">No payment recieved in <%= year %> </td>
                     </tr>
                   <% } %>
                     

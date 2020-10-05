@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Payments (Today)</title>
+    <title>Pending Complaints</title>
 
     
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -24,8 +24,8 @@
         <!-- Sidebar -->
           <%- include('../partials/sidebar', {
             dashboard : '',
-            payments : 'active',
-            complaints : ''
+            payments : '',
+            complaints : 'active'
           }); %>
 
           <div id="content-wrapper" class="d-flex flex-column">
@@ -33,14 +33,14 @@
             <!-- Main Content -->
             <div id="content">
       
-              <%- include('../partials/topbar', {heading: 'Payments (Today)'}); %>
+              <%- include('../partials/topbar', {heading: 'Pending Complaints'}); %>
 
               <!-- End of Topbar -->
       
               <!-- Begin Page Content -->
               <div class="container-fluid">
 
-                <h1 class="h4 mb-4 text-gray-800">Payments Recieved on <%= today %></h1>
+                <h1 class="h4 mb-4 text-gray-800">Complaints Reported by Customers</h1>
 
                           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -52,52 +52,63 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
+                      <th>#</th>
                       <th>ID</th>
-                      <th>Txn_ID</th>
                       <th>Name</th>
                       <th>Address</th>
                       <th>Mobile</th>
                       <th>STB No.</th>
-                      <th>Amount</th>
-                      <th>Date</th>
-                      <th>Time</th>
+                      <th>Mail</th>
+                      <th>Error No.</th>
+                      <th>Message</th>
+                      <th>Date & Time</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
+                      <th>#</th>
                       <th>ID</th>
-                      <th>Txn_ID</th>
                       <th>Name</th>
                       <th>Address</th>
                       <th>Mobile</th>
                       <th>STB No.</th>
-                      <th>Amount</th>
-                      <th>Date</th>
-                      <th>Time</th>
+                      <th>Mail</th>
+                      <th>Error No.</th>
+                      <th>Message</th>
+                      <th>Date & Time</th>
                     </tr>
                   </tfoot>
                   <tbody>
                     <% if(results.length){ 
                       for(var i = 0;i < results.length;i++) { 
-                        var date = results[i].Date.toString().split("00");
+                        var date = results[i].dateTime.toString().split("GMT");
                         %>
 
                         <tr>
-                          <td><%= results[i].id %></td>
-                          <td><%= results[i].Txn_ID %></td>
+                          <td>
+                            <form action="/adminPanel/complaints/pending" method="POST">
+                              <div>
+                                <input type="hidden" name="id" value="<%= results[i].id %>">
+                                <input type="checkbox" name="checkbox" onChange="this.form.submit()"/>&nbsp;
+                                <label for="checkbox"></label>
+                              </div>
+                            </form>
+                          </td>
+                          <td><%= i+1 %></td>
                           <td><%= results[i].Name %></td>
                           <td><%= results[i].Address %></td>
                           <td><%= results[i].Mobile %></td>
                           <td><%= results[i].Stb %></td>
-                          <td><%= results[i].Amount %></td>
+                          <td><%= results[i].Mail %></td>
+                          <td><%= results[i].Error %></td>
+                          <td><%= results[i].Msg %></td>
                           <td><%= date[0] %></td>
-                          <td><%= results[i].Time %></td>
                         </tr>
 
                     <% } 
                   }else{ %>
                     <tr>
-                      <td colspan="3">No payment recieved on <%= today %></td>
+                      <td colspan="3">No Pending Complaints</td>
                     </tr>
                   <% } %>
                     

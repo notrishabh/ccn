@@ -34,15 +34,21 @@ route.get('/', ensureAuthenticateds, (req,res)=>{
                 let sql = `SELECT COUNT(id) AS total FROM complaint WHERE Checkbox = 0`;
                 db.query(sql, (err, results)=>{
                     totalComplaints = results[0].total;
-
-                    res.render('adminPanel', {
-                        user : req.user,
-                        monthlyEarnings : monthlyEarnings,
-                        yearlyEarnings : yearlyEarnings,
-                        latestName : latestName,
-                        latestAmount : latestAmount,
-                        totalComplaints : totalComplaints
+                    let sql = `SELECT SUM(Amount) AS sum,month(Date) AS month FROM payment GROUP BY month(Date)`;
+                    db.query(sql, (err,results)=>{
+                        var sum = results;
+                        res.render('adminPanel', {
+                            user : req.user,
+                            monthlyEarnings : monthlyEarnings,
+                            yearlyEarnings : yearlyEarnings,
+                            latestName : latestName,
+                            latestAmount : latestAmount,
+                            totalComplaints : totalComplaints,
+                            sum : sum
+                        });
                     });
+
+                    
 
                 });
 
@@ -53,6 +59,13 @@ route.get('/', ensureAuthenticateds, (req,res)=>{
         
     });
     
+});
+
+route.get('/no',(req,res)=>{
+    let sql = `SELECT SUM(Amount),month(Date) FROM payment GROUP BY month(Date)`;
+    db.query(sql, (err,results)=>{
+        console.log(results);
+    });
 });
 
 route.get('/logout', (req,res)=>{

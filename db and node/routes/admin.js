@@ -77,6 +77,7 @@ route.get('/logout', (req,res)=>{
 
 route.use('/payments', require('./payments'));
 route.use('/complaints', require('./complaints'));
+route.use('/offlinePayments', require('./offlinePayments'));
 
 
 module.exports = route;

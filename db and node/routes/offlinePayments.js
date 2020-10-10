@@ -28,5 +28,9 @@ route.post("/",ensureAuthenticateds, (req, res) => {
 });
 
 
+route.post('/savePayment',(req,res)=>{
+  res.send("XD");
+});
+
 
 module.exports = route;

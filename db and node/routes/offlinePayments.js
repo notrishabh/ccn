@@ -3,13 +3,14 @@ const route = express.Router();
 const mysql = require("mysql");
 const { ensureAuthenticateds } = require("../config/adminAuth"); //Login Authenticator
 
-
+var success = [];
 
 route.get('/',ensureAuthenticateds, (req,res)=>{
     res.render("offlinePayments", {
         user : req.user,
         results : "none",
-        displayDetails : "none"
+        displayDetails : "none",
+        success
     });
 });
 
@@ -17,19 +18,55 @@ route.post("/",ensureAuthenticateds, (req, res) => {
   stb = req.body.stb;
   let sql = `SELECT * FROM info WHERE stb = "${stb}"`;
   db.query(sql, (err, results) => {
-      console.log(results[0]);
     res.render("offlinePayments", {
       user: req.user,
       results: results[0],
       displayDetails: "block",
       noResults: "none",
+      success
     });
   });
 });
 
 
-route.post('/savePayment',(req,res)=>{
-  res.send("XD");
+route.post('/savePayment',ensureAuthenticateds,(req,res)=>{
+  var amount;
+  var packageOpted;
+  if(req.body.exampleField){
+    amount = req.body.exampleField;
+  }else{
+    amount = req.body.exampleRadios;
+  }
+  if(amount == "153"){
+    packageOpted = "Basic";
+  } else if(amount == "275"){
+    packageOpted = "Silver";
+  }else if(amount == "360"){
+    packageOpted = "Gold";
+  }else if(amount == "454"){
+    packageOpted = "Diamond";
+  }else{
+    packageOpted = "Custom";
+  }
+
+  db.query(`SELECT * FROM info WHERE Stb = "${req.body.Stb}"`,(err,results)=>{
+    let sql = `INSERT INTO offline_payment SET ?`;
+    let values = {
+      Name : results[0].Name,
+      Address : results[0].Address,
+      Mobile : results[0].Mobile,
+      Stb : results[0].Stb,
+      Amount : amount,
+      packageOpted : packageOpted
+    };
+    db.query(sql, values, (err,results)=>{
+      if(!err){
+        req.flash('success_msg', 'Saved Successfully!');
+        res.redirect('/adminPanel/offlinePayments');
+      }
+    });
+  });
+
 });
 
 

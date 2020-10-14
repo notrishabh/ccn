@@ -65,4 +65,14 @@ route.get('/thisYear', ensureAuthenticateds, (req,res)=>{
     
 });
 
+route.get('/offline', ensureAuthenticateds, (req,res)=>{
+  let sql = `SELECT * FROM offline_payment ORDER BY id DESC`;
+  db.query(sql, (err,results)=>{
+    res.render('payments/offline', {
+      user : req.user,
+      results : results
+    })
+  });
+});
+
 module.exports = route;

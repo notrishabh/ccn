@@ -37,7 +37,7 @@ db.connect((err)=>{
 //=================Passport Login Configuration========
 app.use(session({
     secret : 'secret',
-    cookie : { maxAge : 60000},
+    cookie : { maxAge : 86400000},
     resave : false,
     saveUninitialized : false
 }));

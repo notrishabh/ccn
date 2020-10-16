@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Pending Complaints</title>
+    <title>Full List (<%=region%>)</title>
 
     
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -25,24 +25,37 @@
           <%- include('../partials/sidebar', {
             dashboard : '',
             payments : '',
-            complaints : 'active',
+            complaints : '',
             offlinePayments : '',
-            fullList : ''
+            fullList : 'active'
           }); %>
 
           <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
             <div id="content">
-      
-              <%- include('../partials/topbar', {heading: 'Pending Complaints'}); %>
+              <%- include('../partials/topbar', {heading: `Full List (${region})`}); %>
 
               <!-- End of Topbar -->
       
               <!-- Begin Page Content -->
               <div class="container-fluid">
 
-                <h1 class="h4 mb-4 text-gray-800">Complaints Reported by Customers</h1>
+                <div class="container-fluid">
+                  <div class="row align-items-center">
+                    <div class="col-md-4">
+                      <h1 class="h4 mb-4 text-gray-800"><%=region%> Block</h1>
+                    </div>
+                    <div class="col-md-4 offset-md-4">
+                      <div class="row align-items-center">
+                        <p class="lead mb-4 text-gray-800 mr-3">Payment records for this month</p>
+                        <a href="/adminPanel/fullList/<%=region%>/download" class="btn btn-primary mb-3 p-2">Download <i class="fas fa-arrow-circle-down"></i></a>
+    
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
 
                           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -54,63 +67,39 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>#</th>
-                      <th>ID</th>
                       <th>Name</th>
                       <th>Address</th>
                       <th>Mobile</th>
                       <th>STB No.</th>
-                      <th>Mail</th>
-                      <th>Error No.</th>
-                      <th>Message</th>
-                      <th>Date & Time</th>
+                      <th>October</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>#</th>
-                      <th>ID</th>
                       <th>Name</th>
                       <th>Address</th>
                       <th>Mobile</th>
                       <th>STB No.</th>
-                      <th>Mail</th>
-                      <th>Error No.</th>
-                      <th>Message</th>
-                      <th>Date & Time</th>
+                      <th>October</th>
                     </tr>
                   </tfoot>
                   <tbody>
                     <% if(results.length){ 
                       for(var i = 0;i < results.length;i++) { 
-                        var date = results[i].dateTime.toString().split("GMT");
                         %>
 
                         <tr>
-                          <td>
-                            <form action="/adminPanel/complaints/pending" method="POST">
-                              <div>
-                                <input type="hidden" name="id" value="<%= results[i].id %>">
-                                <input type="checkbox" name="checkbox" onChange="this.form.submit()"/>&nbsp;
-                                <label for="checkbox"></label>
-                              </div>
-                            </form>
-                          </td>
-                          <td><%= i+1 %></td>
                           <td><%= results[i].Name %></td>
                           <td><%= results[i].Address %></td>
                           <td><%= results[i].Mobile %></td>
                           <td><%= results[i].Stb %></td>
-                          <td><%= results[i].Mail %></td>
-                          <td><%= results[i].Error %></td>
-                          <td><%= results[i].Msg %></td>
-                          <td><%= date[0] %></td>
+                          <td><%= results[i].Amount %></td>
                         </tr>
 
                     <% } 
                   }else{ %>
                     <tr>
-                      <td colspan="3">No Pending Complaints</td>
+                      <td colspan="3">No customers found</td>
                     </tr>
                   <% } %>
                     

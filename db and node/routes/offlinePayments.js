@@ -16,7 +16,7 @@ route.get('/',ensureAuthenticateds, (req,res)=>{
 
 route.post("/",ensureAuthenticateds, (req, res) => {
   stb = req.body.stb;
-  let sql = `SELECT * FROM info WHERE stb = "${stb}"`;
+  let sql = `SELECT * FROM all_info WHERE stb = "${stb}"`;
   db.query(sql, (err, results) => {
     res.render("offlinePayments", {
       user: req.user,
@@ -48,8 +48,8 @@ route.post('/savePayment',ensureAuthenticateds,(req,res)=>{
   }else{
     packageOpted = "Custom";
   }
-
-  db.query(`SELECT * FROM info WHERE Stb = "${req.body.Stb}"`,(err,results)=>{
+ //ADD QUERY FOR INSERTING in all_info in respective month in production
+  db.query(`SELECT * FROM all_info WHERE Stb = "${req.body.Stb}"`,(err,results)=>{
     let sql = `INSERT INTO offline_payment SET ?`;
     let values = {
       Name : results[0].Name,

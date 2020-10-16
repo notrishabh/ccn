@@ -7,7 +7,7 @@ const Excel = require('exceljs');
 
 route.get('/:region',ensureAuthenticateds, (req,res)=>{
     var region = req.params.region;
-    let sql = `SELECT Name, Address, Mobile, Stb, October AS Amount FROM block12 WHERE Address LIKE "${region}%"`;
+    let sql = `SELECT Name, Address, Mobile, Stb, October AS Amount FROM all_info WHERE Address LIKE "${region}%"`;
     db.query(sql, (err,results)=>{
         res.render('fullList/allRegions', {
             user : req.user,
@@ -31,7 +31,7 @@ route.get('/:region/download', ensureAuthenticateds,(req,res)=>{
         { header: 'Mobile', key: 'Mobile', width: 15 },
         { header: 'Amount', key: 'Amount', width: 10 },
     ];
-    let sql = `SELECT Name, Address, Mobile, Stb, October AS Amount FROM block12 WHERE Address LIKE "${region}%"`;
+    let sql = `SELECT Name, Address, Mobile, Stb, October AS Amount FROM all_info WHERE Address LIKE "${region}%"`;
     db.query(sql, (err,results)=>{
         results.forEach((result)=>{
             var data = JSON.parse(JSON.stringify(result));

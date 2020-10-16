@@ -28,7 +28,7 @@ route.post('/sendComplaint', (req,res)=>{
    var error = req.body.error;
    var msg = req.body.msg;
 
-   db.query(`SELECT * FROM info WHERE Stb = "${stb}"`, (err,result)=>{
+   db.query(`SELECT * FROM all_info WHERE Stb = "${stb}"`, (err,result)=>{
 
     let sql = 'INSERT INTO complaint SET ?'
     var values = {Name : result[0].Name, Address : result[0].Address, Mobile : result[0].Mobile, Stb : result[0].Stb, Mail : mail, Error : error, Msg : msg};
@@ -82,8 +82,8 @@ route.post('/txn/payment', function(req, res){
 
     }	
     });
-        route.post('/callback', function(req, res){
-            db.query('SELECT * FROM info WHERE Stb = ?', [req.query.stb], function(error, results, fields) {
+        route.post('/callback', function(req, res){ //ADD QUERY FOR INSERTING IN all_info with respective month in production
+            db.query('SELECT * FROM all_info WHERE Stb = ?', [req.query.stb], function(error, results, fields) {
                 var pay = 'INSERT INTO payment SET ?';
                 var values = {
                     Txn_Id : req.body.TXNID,
